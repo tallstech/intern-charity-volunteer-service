@@ -11,7 +11,7 @@ cvs:
       password: tallstech
       driver-class-name: org.postgresql.Driver
       configuration:
-        maximum-pool-size: 30
+        maximum-pool-size: 20
 
 openapi:
   app:
