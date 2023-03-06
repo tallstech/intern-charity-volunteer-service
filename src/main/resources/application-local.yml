@@ -1,0 +1,24 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /api/v1
+
+cvs:
+  datasource:
+    location:
+      jdbc-url: jdbc:postgresql://tallstechdb.cisr0tyjbfsl.us-east-2.rds.amazonaws.com:5432/volunteerdb
+      username: tallstech
+      password: tallstech
+      driver-class-name: org.postgresql.Driver
+      configuration:
+        maximum-pool-size: 30
+
+openapi:
+  app:
+    description: Charity Volunteer Service
+    version: 1.0.0
+    title: Charity Volunteer API
+    contact: Contact Support
+    email: info@talls.tech
+    licence: Tallstech 1.0
+    url: https://talls.tech
