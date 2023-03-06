@@ -6,9 +6,9 @@ server:
 cvs:
   datasource:
     location:
-      jdbc-url: jdbc:postgresql://<HOST>/<DB>
-      username: <USER>
-      password: <PASS>
+      jdbc-url: jdbc:postgresql://tallstechdb.cisr0tyjbfsl.us-east-2.rds.amazonaws.com:5432/volunteerdb
+      username: tallstech
+      password: tallstech
       driver-class-name: org.postgresql.Driver
       configuration:
         maximum-pool-size: 30
