@@ -3,7 +3,7 @@ package com.tallstech.volunteer.config;
 import javax.sql.DataSource;
 
 
-import com.tallstech.volunteer.constant.LocationConstants;
+import com.tallstech.volunteer.constant.VolunteerConstants;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -17,16 +17,16 @@ import org.springframework.jdbc.core.JdbcTemplate;
 @Getter
 @Configuration
 public class DataSourceConfig {
-    @Bean(name = LocationConstants.LOCATION_DATA_SOURCE)
-    @ConfigurationProperties(prefix = "cvs.datasource.location")
+    @Bean(name = VolunteerConstants.VOLUNTEER_DATA_SOURCE)
+    @ConfigurationProperties(prefix = "cvs.datasource.volunteer")
     public DataSource createMetadataDataSource() {
         return  DataSourceBuilder.create()
                 .build();
     }
 
-    @Bean(name = LocationConstants.LOCATION_JDBC_TEMPLATE)
+    @Bean(name = VolunteerConstants.VOLUNTEER_JDBC_TEMPLATE)
     @Primary
-    public JdbcTemplate createMetadataJdbcTemplate(@Qualifier(LocationConstants.LOCATION_DATA_SOURCE) DataSource dataSource) {
+    public JdbcTemplate createVolunteerJdbcTemplate(@Qualifier(VolunteerConstants.VOLUNTEER_DATA_SOURCE) DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 }

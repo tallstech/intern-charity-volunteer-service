@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class OpenApiConfig {
 
     @Bean
-    public OpenAPI sordmanOpenAPI(
+    public OpenAPI volunteerOpenAPI(
             @Value("${openapi.app.description}") String description,
             @Value("${openapi.app.version}") String version,
             @Value("${openapi.app.title}") String title,

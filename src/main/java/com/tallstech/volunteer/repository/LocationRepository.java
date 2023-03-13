@@ -1,10 +1,7 @@
 package com.tallstech.volunteer.repository;
 
-import static com.tallstech.volunteer.constant.LocationConstants.LOCATION_JDBC_TEMPLATE;
-import static com.tallstech.volunteer.repository.query.LocationSqlQueries.SQL_FETCH_CITIES;
-import static com.tallstech.volunteer.repository.query.LocationSqlQueries.SQL_FETCH_DISTRICTS;
-import static com.tallstech.volunteer.repository.query.LocationSqlQueries.SQL_FETCH_NEIGHBORHOODS_WITH_TOWN;
-import static com.tallstech.volunteer.repository.query.LocationSqlQueries.SQL_FETCH_TOWNS;
+import static com.tallstech.volunteer.constant.VolunteerConstants.VOLUNTEER_JDBC_TEMPLATE;
+import static com.tallstech.volunteer.repository.query.LocationSqlQueries.*;
 
 import java.util.List;
 
@@ -22,7 +19,7 @@ public class LocationRepository {
 
     private final JdbcTemplate locationJdbcTemplate;
 
-    public LocationRepository(@Qualifier(LOCATION_JDBC_TEMPLATE) JdbcTemplate jdbcTemplate) {
+    public LocationRepository(@Qualifier(VOLUNTEER_JDBC_TEMPLATE) JdbcTemplate jdbcTemplate) {
         this.locationJdbcTemplate = jdbcTemplate;
     }
 
@@ -84,6 +81,27 @@ public class LocationRepository {
                             rs.getString("neighborhood")
 
                     ), new Object[]{cityParameter, districtParameter, townParameter}
+            );
+
+        } catch (Exception exception) {
+            log.error("An exception occurred while fetching neighborhoods");
+            throw new RuntimeException("An exception occurred while fetching neighborhoods", exception);
+        }
+        return neighborhoods;
+    }
+
+    public List<Location> fetchClickableNeighborhoodsWithZıpCode(String city, String district, String town, String zipCode) {
+        List<Location> neighborhoods;
+        try {
+            String cityParameter = "%"+city.toUpperCase()+"%";
+            String districtParameter = "%"+district.toUpperCase()+"%";
+            String townParameter = "%"+town.toUpperCase()+"%";
+            String zipCodeParameter = "%"+zipCode+"%";
+            neighborhoods = locationJdbcTemplate.query(SQL_FETCH_NEIGHBORHOODS_WITH_ZIP_CODE, (rs, rowNum) -> new Location(
+                            LocationTypes.NEIGHBORHOOD.label(),
+                            rs.getString("neighborhood")
+
+                    ), new Object[]{cityParameter, districtParameter, townParameter, zipCodeParameter}
             );
 
         } catch (Exception exception) {
